@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcore_pattern.a CMakeFiles/core_pattern.dir/src/core/pattern/pattern_analyzer.cpp.o
+/usr/bin/ranlib libcore_pattern.a

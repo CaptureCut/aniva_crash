@@ -1,0 +1,2 @@
+/usr/bin/ar qc libpersistence.a CMakeFiles/persistence.dir/src/persistence/crash_store.cpp.o CMakeFiles/persistence.dir/src/persistence/anomaly_store.cpp.o CMakeFiles/persistence.dir/src/persistence/corpus_store.cpp.o
+/usr/bin/ranlib libpersistence.a

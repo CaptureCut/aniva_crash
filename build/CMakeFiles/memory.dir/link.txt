@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmemory.a CMakeFiles/memory.dir/src/memory/arena.cpp.o CMakeFiles/memory.dir/src/memory/bounded_buffer.cpp.o
+/usr/bin/ranlib libmemory.a

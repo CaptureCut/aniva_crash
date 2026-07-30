@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcore_triage.a CMakeFiles/core_triage.dir/src/core/triage/triage.cpp.o
+/usr/bin/ranlib libcore_triage.a

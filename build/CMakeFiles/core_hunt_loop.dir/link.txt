@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcore_hunt_loop.a CMakeFiles/core_hunt_loop.dir/src/core/hunt_loop/hunt_loop.cpp.o
+/usr/bin/ranlib libcore_hunt_loop.a

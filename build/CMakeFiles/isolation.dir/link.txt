@@ -1,0 +1,2 @@
+/usr/bin/ar qc libisolation.a CMakeFiles/isolation.dir/src/isolation/process_sandbox.cpp.o
+/usr/bin/ranlib libisolation.a

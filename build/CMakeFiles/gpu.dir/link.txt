@@ -1,0 +1,2 @@
+/usr/bin/ar qc libgpu.a CMakeFiles/gpu.dir/src/gpu/gpu_runtime.cu.o CMakeFiles/gpu.dir/src/gpu/gpu_bias.cpp.o CMakeFiles/gpu.dir/src/gpu/gpu_kernel.cu.o CMakeFiles/gpu.dir/src/gpu/gpu_allocator.cpp.o CMakeFiles/gpu.dir/src/gpu/gpu_watchdog.cpp.o CMakeFiles/gpu.dir/src/gpu/gpu_reset.cpp.o CMakeFiles/gpu.dir/src/gpu/gpu_errors.cpp.o
+/usr/bin/ranlib libgpu.a

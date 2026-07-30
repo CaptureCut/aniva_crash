@@ -1,0 +1,2 @@
+/usr/bin/ar qc libdiagnostics.a CMakeFiles/diagnostics.dir/src/diagnostics/live_diagnostics.cpp.o
+/usr/bin/ranlib libdiagnostics.a

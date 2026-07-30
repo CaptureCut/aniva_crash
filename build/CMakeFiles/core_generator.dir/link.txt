@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcore_generator.a CMakeFiles/core_generator.dir/src/core/generator/generator.cpp.o CMakeFiles/core_generator.dir/src/core/generator/mutator.cpp.o
+/usr/bin/ranlib libcore_generator.a

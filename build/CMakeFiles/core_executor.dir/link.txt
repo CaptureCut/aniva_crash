@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcore_executor.a CMakeFiles/core_executor.dir/src/core/executor/executor.cpp.o
+/usr/bin/ranlib libcore_executor.a
