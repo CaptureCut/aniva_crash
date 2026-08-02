@@ -1,26 +1,26 @@
 #pragma once
 
-#include <vector>
 #include <string>
+#include <vector>
 #include <cuda_runtime.h>
 
+#include "core/pattern/pattern_analyzer.h"
+
+// результат GPU-анализа
 struct GpuRuntimeResult {
-    float total_bias = 0.0f;
+    float coverage_score = 0.0f;   // длина кода, сложность
+    float pattern_score  = 0.0f;   // паттерны (CPU + GPU)
+    float crash_score    = 0.0f;   // опасные конструкции
+    float total_bias     = 0.0f;   // итоговый bias
 };
 
 class GpuRuntime {
 public:
     GpuRuntime() = default;
 
-    GpuRuntimeResult score(
-        const std::vector<int>& crash,
-        const std::vector<int>& score,
-        const std::vector<int>& tf,
-        const std::vector<int>& mg,
-        const std::vector<int>& wasm,
-        const std::vector<int>& ta,
-        const std::vector<int>& gc
-    );
+    // новый интерфейс: GPU анализирует JS-код + паттерны
+    GpuRuntimeResult score(const std::string& js_code,
+                           const std::vector<PatternHit>& patterns);
 
 private:
     bool check(const char* where, cudaError_t err);

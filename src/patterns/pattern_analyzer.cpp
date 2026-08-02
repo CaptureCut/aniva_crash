@@ -1,64 +1,91 @@
-#include "pattern_analyzer.h"
+#include "core/pattern/pattern_analyzer.h"
 
 std::vector<PatternHit> PatternAnalyzer::analyze(const std::string& code) {
     std::vector<PatternHit> hits;
 
-    detect_proxy(code, hits);
-    detect_atomics(code, hits);
-    detect_wasm(code, hits);
-    detect_regexp(code, hits);
-    detect_gc(code, hits);
-    detect_typedarray_oob(code, hits);
-    detect_jit_deopt(code, hits);
+    auto add = [&](PatternKind kind, float weight, size_t pos) {
+        hits.push_back(PatternHit{kind, weight, pos});
+    };
+
+    auto find_all = [&](const std::string& needle, PatternKind kind, float weight) {
+        size_t pos = code.find(needle);
+        while (pos != std::string::npos) {
+            add(kind, weight, pos);
+            pos = code.find(needle, pos + needle.size());
+        }
+    };
+
+    // -----------------------------------------
+    // Proxy recursion
+    // -----------------------------------------
+    find_all("new Proxy",            PatternKind::Proxy,         0.6f);
+    find_all("recv[prop]",           PatternKind::ProxyRec,      1.0f);
+    find_all("new Proxy(o,h)",       PatternKind::ProxyRec,      1.0f);
+
+    // -----------------------------------------
+    // Atomics
+    // -----------------------------------------
+    find_all("Atomics.",             PatternKind::Atomics,       0.6f);
+    find_all("SharedArrayBuffer",    PatternKind::Atomics,       0.7f);
+
+    // -----------------------------------------
+    // WASM + OOB
+    // -----------------------------------------
+    find_all("WebAssembly",          PatternKind::Wasm,          0.8f);
+    find_all("i32.load",             PatternKind::WasmOob,       1.0f);
+    find_all("i32.store",            PatternKind::WasmOob,       1.0f);
+    find_all("memory",               PatternKind::WasmOob,       0.9f);
+    find_all("table",                PatternKind::WasmOob,       0.9f);
+
+    // -----------------------------------------
+    // RegExp catastrophic backtracking
+    // -----------------------------------------
+    find_all("RegExp(",              PatternKind::RegExp,        0.4f);
+    find_all("(a+)+$",               PatternKind::RegExpCat,     1.0f);
+    find_all("repeat(5000)",         PatternKind::RegExpCat,     1.0f);
+
+    // -----------------------------------------
+    // GC pressure
+    // -----------------------------------------
+    find_all("new Array(1000)",      PatternKind::GcPressure,    0.9f);
+    find_all("gc()",                 PatternKind::GcPressure,    1.0f);
+
+    // -----------------------------------------
+    // TypedArray / DataView OOB
+    // -----------------------------------------
+    find_all("Uint8Array",           PatternKind::TypedArray,    0.3f);
+    find_all("DataView",             PatternKind::TypedArray,    0.3f);
+    find_all("99999999",             PatternKind::TypedArrayOob, 1.0f);
+    find_all("NaN",                  PatternKind::TypedArrayOob, 0.8f);
+    find_all("Infinity",             PatternKind::TypedArrayOob, 0.8f);
+    find_all("Symbol(",              PatternKind::TypedArrayOob, 0.7f);
+    find_all("setUint32",            PatternKind::TypedArrayOob, 0.9f);
+    find_all("getFloat64",           PatternKind::TypedArrayOob, 0.9f);
+
+    // -----------------------------------------
+    // JIT deopt storms
+    // -----------------------------------------
+    find_all("typeof x",             PatternKind::JitDeopt,      0.8f);
+    find_all("obj['k' + i]",         PatternKind::JitDeopt,      0.9f);
+    find_all("hot(",                 PatternKind::JitDeopt,      0.9f);
+
+    // -----------------------------------------
+    // fallback
+    // -----------------------------------------
+    if (hits.empty())
+        add(PatternKind::Other, 0.1f, 0);
 
     return hits;
 }
 
-void PatternAnalyzer::detect_proxy(const std::string& code, std::vector<PatternHit>& out) {
-    auto pos = code.find("Proxy");
-    if (pos != std::string::npos) {
-        out.push_back({PatternKind::Proxy, 0.4f, pos});
-    }
+bool PatternAnalyzer::is_interesting(const std::vector<PatternHit>& hits) const {
+    float score = 0.0f;
+    for (auto& h : hits)
+        score += h.weight;
+
+    return score >= 1.0f || hits.size() >= 3;
 }
 
-void PatternAnalyzer::detect_atomics(const std::string& code, std::vector<PatternHit>& out) {
-    auto pos = code.find("Atomics");
-    if (pos != std::string::npos) {
-        out.push_back({PatternKind::Atomics, 0.5f, pos});
-    }
-}
-
-void PatternAnalyzer::detect_wasm(const std::string& code, std::vector<PatternHit>& out) {
-    auto pos = code.find("WebAssembly");
-    if (pos != std::string::npos) {
-        out.push_back({PatternKind::Wasm, 0.6f, pos});
-    }
-}
-
-void PatternAnalyzer::detect_regexp(const std::string& code, std::vector<PatternHit>& out) {
-    auto pos = code.find("RegExp");
-    if (pos != std::string::npos) {
-        out.push_back({PatternKind::RegExp, 0.3f, pos});
-    }
-}
-
-void PatternAnalyzer::detect_gc(const std::string& code, std::vector<PatternHit>& out) {
-    auto pos = code.find("gc()");
-    if (pos != std::string::npos) {
-        out.push_back({PatternKind::GcPressure, 0.7f, pos});
-    }
-}
-
-void PatternAnalyzer::detect_typedarray_oob(const std::string& code, std::vector<PatternHit>& out) {
-    auto pos = code.find("new Uint8Array(");
-    if (pos != std::string::npos && code.find("length + 100") != std::string::npos) {
-        out.push_back({PatternKind::TypedArrayOob, 0.8f, pos});
-    }
-}
-
-void PatternAnalyzer::detect_jit_deopt(const std::string& code, std::vector<PatternHit>& out) {
-    auto pos = code.find("%OptimizeFunctionOnNextCall");
-    if (pos != std::string::npos) {
-        out.push_back({PatternKind::JitDeopt, 0.9f, pos});
-    }
+void PatternAnalyzer::reset() {
+    // пусто — нужно для HuntLoop::restart()
 }

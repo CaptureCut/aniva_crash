@@ -2,32 +2,56 @@
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
-// типы паттернов, которые реально используются в движке
 enum class PatternKind {
+    // базовые
     Throw,
     ForLoop,
     MapCall,
-    Wasm,
     TryCatch,
+
+    // WASM
+    Wasm,
+    WasmOob,
+
+    // TypedArray / DataView
+    TypedArray,
+    TypedArrayOob,
+
+    // Proxy recursion
+    Proxy,
+    ProxyRec,
+
+    // RegExp
+    RegExp,
+    RegExpCat,
+
+    // JIT
+    JitDeopt,
+
+    // GC
     GC,
+
+    // Atomics
+    Atomics,
+
+    // fallback
     Other
 };
 
-// единичное совпадение паттерна
 struct PatternHit {
-    PatternKind kind;   // тип паттерна
-    float weight;       // сила паттерна (для bias)
-    size_t position;    // позиция в JS-коде
+    PatternKind kind;
+    float weight;
+    size_t position;
 };
 
 class PatternAnalyzer {
 public:
     PatternAnalyzer() = default;
 
-    // анализ JS-кода → список паттернов
     std::vector<PatternHit> analyze(const std::string& code);
-
-    // простой критерий "интересности"
     bool is_interesting(const std::vector<PatternHit>& hits) const;
+
+    void reset(); // нужен для HuntLoop::restart()
 };

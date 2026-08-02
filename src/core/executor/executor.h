@@ -13,9 +13,10 @@ public:
 
     ExecResult execute(const Script& script);
 
-private:
-    ExecStatus classify_exit(const ExecResult& res);
+    // нужен для HuntLoop::restart()
+    void reset();
 
+private:
     EventBus& bus_;
     ProcessSandbox& sandbox_;
 };

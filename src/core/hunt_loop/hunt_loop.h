@@ -31,6 +31,9 @@ public:
     void run(std::atomic<bool>& stop_flag);
 
 private:
+    void restart();
+    void write_stats(std::size_t iteration);
+
     EventBus& bus_;
     Generator& generator_;
     Executor& executor_;
@@ -41,4 +44,6 @@ private:
     CrashStore& crashes_;
     Telemetry& telemetry_;
     Heartbeat& heartbeat_;
+
+    std::size_t idle_counter_ = 0;
 };

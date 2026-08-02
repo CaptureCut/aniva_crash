@@ -11,7 +11,7 @@ public:
     // дефолтный конструктор — нужен для совместимости
     Mutator();
 
-    // главный фикс — конструктор с Arena
+    // конструктор с Arena
     explicit Mutator(Arena& arena);
 
     // основная точка входа
@@ -21,8 +21,10 @@ private:
     Arena* arena_ = nullptr;      // ссылка на арену
     std::mt19937 rng_;            // RNG для мутаций
 
-    // вспомогательные мутации
-    std::string insert_random_stmt();
-    std::string flip_operator(const std::string& code);
-    std::string random_identifier();
+    // безопасные мутации
+    std::string insert_safe_stmt(const std::string& code);
+    std::string flip_safe_operator(const std::string& code);
+    std::string wrap_in_try(const std::string& code);
+    std::string append_function_call(const std::string& code);
+    std::string append_wasm_trigger(const std::string& code);
 };

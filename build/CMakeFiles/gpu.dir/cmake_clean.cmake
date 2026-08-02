@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/gpu.dir/cmake_device_link.o"
   "CMakeFiles/gpu.dir/src/gpu/gpu_allocator.cpp.o"
   "CMakeFiles/gpu.dir/src/gpu/gpu_allocator.cpp.o.d"
   "CMakeFiles/gpu.dir/src/gpu/gpu_bias.cpp.o"

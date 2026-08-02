@@ -5,36 +5,28 @@ Engine::Engine(const EngineConfig& cfg)
     , bus_()
     , telemetry_()
     , heartbeat_(telemetry_, cfg.heartbeat_ms)
-    , corpus_(cfg.corpus_dir)
-    , crashes_(cfg.crash_dir)
+    , corpus_(cfg.corpus_dir, bus_)          // CorpusStore(dir, bus)
+    , crashes_(cfg.crash_dir)                // CrashStore(dir) — FIXED
     , sandbox_(cfg.engine_path, cfg.timeout_ms)
     , gpu_runtime_()
     , gpu_bias_(bus_, gpu_runtime_)
-{}
+{
+}
 
 void Engine::init() {
-    // порядок создания строго соответствует новым конструкторам
+    bus_.publish("engine:init", "initializing engine");
+
     generator_ = std::make_unique<Generator>(
-        bus_,
-        &gpu_bias_,
-        &corpus_
-    );
+        bus_, &gpu_bias_, &corpus_);
 
     executor_ = std::make_unique<Executor>(
-        bus_,
-        sandbox_
-    );
+        bus_, sandbox_);
 
     triage_ = std::make_unique<Triage>(
-        bus_,
-        crashes_
-    );
+        bus_, crashes_, corpus_);            // Triage(bus, crashes, corpus)
 
     minimizer_ = std::make_unique<Minimizer>(
-        bus_,
-        *executor_,
-        crashes_
-    );
+        bus_, *executor_, crashes_);
 
     analyzer_ = std::make_unique<PatternAnalyzer>();
 
@@ -51,23 +43,34 @@ void Engine::init() {
         heartbeat_
     );
 
-    heartbeat_.start();
+    bus_.publish("engine:init_done", "engine initialization complete");
 }
 
 void Engine::warmup() {
     bus_.publish("engine:warmup", "warming up engine");
+
+    gpu_bias_.warmup();
     sandbox_.warmup();
+
+    bus_.publish("engine:warmup_done", "warmup complete");
 }
 
 void Engine::run() {
-    bus_.publish("engine:start", "engine started");
+    bus_.publish("engine:run", "engine started");
+
     stop_flag_.store(false);
     hunt_loop_->run(stop_flag_);
+
+    bus_.publish("engine:run_done", "engine stopped");
 }
 
 void Engine::shutdown() {
+    bus_.publish("engine:shutdown", "engine shutting down");
+
     stop_flag_.store(true);
-    heartbeat_.stop();
+
     sandbox_.shutdown();
-    bus_.publish("engine:shutdown", "engine stopped");
+    gpu_bias_.shutdown();
+
+    bus_.publish("engine:shutdown_done", "engine shutdown complete");
 }

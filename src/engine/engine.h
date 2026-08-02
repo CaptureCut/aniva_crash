@@ -2,6 +2,7 @@
 
 #include <atomic>
 #include <memory>
+#include <string>
 
 #include "engine_config.h"
 
@@ -9,19 +10,20 @@
 #include "telemetry/telemetry.h"
 #include "time/heartbeat.h"
 
-#include "core/hunt_loop/hunt_loop.h"
+#include "persistence/corpus_store.h"
+#include "persistence/crash_store.h"
+
+#include "isolation/process_sandbox.h"
+
+#include "gpu/gpu_runtime.h"
+#include "gpu/gpu_bias.h"
+
 #include "core/generator/generator.h"
 #include "core/executor/executor.h"
 #include "core/triage/triage.h"
 #include "core/minimizer/minimizer.h"
 #include "core/pattern/pattern_analyzer.h"
-
-#include "persistence/corpus_store.h"
-#include "persistence/crash_store.h"
-
-#include "isolation/process_sandbox.h"
-#include "gpu/gpu_bias.h"
-#include "gpu/gpu_runtime.h"
+#include "core/hunt_loop/hunt_loop.h"
 
 class Engine {
 public:
@@ -44,6 +46,7 @@ private:
     CrashStore crashes_;
 
     ProcessSandbox sandbox_;
+
     GpuRuntime gpu_runtime_;
     GpuBias gpu_bias_;
 

@@ -1,5 +1,4 @@
 /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles/core_pattern.dir
-/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles/engine.dir
 /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles/core_generator.dir
 /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles/core_executor.dir
 /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles/core_triage.dir
@@ -13,6 +12,7 @@
 /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles/time.dir
 /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles/telemetry.dir
 /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles/gpu.dir
+/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles/engine.dir
 /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles/aniva_crash.dir
 /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles/bootstrap.dir
 /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles/edit_cache.dir

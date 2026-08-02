@@ -5,5 +5,6 @@ enum class ExecStatus {
     TIMEOUT,        // превышен таймаут
     CRASH,          // процесс упал (SIGSEGV, SIGABRT и т.п.)
     JS_EXCEPTION,   // JS-исключение (exit_code != 0, signal == 0)
-    SANDBOX_FAILURE // ошибка sandbox (fork/exec/pipe/IPC)
+    SANDBOX_FAILURE,// ошибка sandbox (fork/exec/pipe/IPC)
+    INTERESTING     // интересный кейс (не crash, но стоит сохранить)
 };

@@ -5,10 +5,18 @@
 #include "diagnostics.h"
 
 int main() {
+    // Переходим в корень проекта
     chdir("/mnt/c/Users/freeg/Documents/aniva_crash");
 
-    // ВОТ ЭТА СТРОКА — ФИКС ВСЕЙ ХУЙНИ
-    setenv("PATH", "/usr/local/bin:/usr/bin:/bin:/snap/bin:/usr/local/cuda/bin", 1);
+    // Восстанавливаем нормальный PATH
+    const char* default_path =
+        "/usr/local/bin:"
+        "/usr/bin:"
+        "/bin:"
+        "/snap/bin:"
+        "/usr/local/cuda/bin";
+
+    setenv("PATH", default_path, 1);
 
     std::cout << "[BOOTSTRAP] Running diagnostics...\n";
     diagnostics::run();

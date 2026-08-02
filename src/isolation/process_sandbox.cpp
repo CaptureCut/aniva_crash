@@ -35,65 +35,68 @@ ExecResult ProcessSandbox::run_script(const std::string& script_code) {
     res.status    = ExecStatus::SANDBOX_FAILURE;
     res.exit_code = -1;
     res.signal    = 0;
+    res.crash_sig.clear();
+    res.stdout_log.clear();
+    res.stderr_log.clear();
 
-    int in_pipe[2];
-    int out_pipe[2];
-    int err_pipe[2];
+    int out_pipe[2]{-1, -1};
+    int err_pipe[2]{-1, -1};
 
-    if (pipe(in_pipe) < 0) {
-        res.crash_sig = "PIPE_IN_FAIL";
-        return res;
-    }
+    auto safe_close = [](int fd) {
+        if (fd >= 0) ::close(fd);
+    };
+
+    // -------------------------
+    // PIPE SETUP
+    // -------------------------
     if (pipe(out_pipe) < 0) {
         res.crash_sig = "PIPE_OUT_FAIL";
-        close(in_pipe[0]);
-        close(in_pipe[1]);
         return res;
     }
     if (pipe(err_pipe) < 0) {
         res.crash_sig = "PIPE_ERR_FAIL";
-        close(in_pipe[0]);
-        close(in_pipe[1]);
-        close(out_pipe[0]);
-        close(out_pipe[1]);
+        safe_close(out_pipe[0]);
+        safe_close(out_pipe[1]);
         return res;
     }
 
+    // -------------------------
+    // FORK
+    // -------------------------
     pid_t pid = fork();
     if (pid < 0) {
         res.crash_sig = "FORK_FAIL";
-        close(in_pipe[0]);  close(in_pipe[1]);
-        close(out_pipe[0]); close(out_pipe[1]);
-        close(err_pipe[0]); close(err_pipe[1]);
+        safe_close(out_pipe[0]); safe_close(out_pipe[1]);
+        safe_close(err_pipe[0]); safe_close(err_pipe[1]);
         return res;
     }
 
     if (pid == 0) {
         // CHILD
-        dup2(in_pipe[0], STDIN_FILENO);
         dup2(out_pipe[1], STDOUT_FILENO);
         dup2(err_pipe[1], STDERR_FILENO);
 
-        close(in_pipe[1]);
-        close(out_pipe[0]);
-        close(err_pipe[0]);
+        safe_close(out_pipe[0]);
+        safe_close(err_pipe[0]);
+        safe_close(out_pipe[1]);
+        safe_close(err_pipe[1]);
 
-        execl(engine_path_.c_str(), "d8",
-              "--allow-natives-syntax",
-              "--no-wasm-trap-handler",
-              nullptr);
+        const char* argv[] = {
+            engine_path_.c_str(),
+            "-e",
+            script_code.c_str(),
+            "--allow-natives-syntax",
+            "--no-wasm-trap-handler",
+            nullptr
+        };
 
+        execv(engine_path_.c_str(), const_cast<char* const*>(argv));
         _exit(1);
     }
 
     // PARENT
-    close(in_pipe[0]);
-    close(out_pipe[1]);
-    close(err_pipe[1]);
-
-    ssize_t written = write(in_pipe[1], script_code.data(), script_code.size());
-    (void)written; // можно логировать при желании
-    close(in_pipe[1]);
+    safe_close(out_pipe[1]);
+    safe_close(err_pipe[1]);
 
     struct pollfd fds[2];
     fds[0].fd = out_pipe[0];
@@ -104,6 +107,9 @@ ExecResult ProcessSandbox::run_script(const std::string& script_code) {
     char buf[4096];
     bool timed_out = false;
 
+    // -------------------------
+    // POLL LOOP
+    // -------------------------
     while (true) {
         int ret = poll(fds, 2, timeout_ms_);
 
@@ -114,6 +120,7 @@ ExecResult ProcessSandbox::run_script(const std::string& script_code) {
         }
 
         if (ret < 0) {
+            if (errno == EINTR) continue;
             res.crash_sig = "POLL_FAIL";
             break;
         }
@@ -128,17 +135,14 @@ ExecResult ProcessSandbox::run_script(const std::string& script_code) {
             if (n > 0) res.stderr_log.append(buf, n);
         }
 
-        int status;
+        int status = 0;
         pid_t w = waitpid(pid, &status, WNOHANG);
         if (w == pid) {
             if (WIFEXITED(status)) {
                 res.exit_code = WEXITSTATUS(status);
-                if (res.exit_code == 0) {
-                    res.status = ExecStatus::OK;
-                } else {
-                    res.status = ExecStatus::JS_EXCEPTION;
-                    res.crash_sig = "JS_EXIT_" + std::to_string(res.exit_code);
-                }
+                // здесь sandbox НЕ решает, JS_EXCEPTION это или нет
+                // он просто говорит: процесс завершился нормально
+                res.status = ExecStatus::OK;
             } else if (WIFSIGNALED(status)) {
                 res.signal = WTERMSIG(status);
                 res.status = ExecStatus::CRASH;
@@ -155,12 +159,13 @@ ExecResult ProcessSandbox::run_script(const std::string& script_code) {
         }
     }
 
-    close(out_pipe[0]);
-    close(err_pipe[0]);
+    safe_close(out_pipe[0]);
+    safe_close(err_pipe[0]);
 
     if (timed_out) {
         res.status = ExecStatus::TIMEOUT;
         res.crash_sig = "TIMEOUT";
+        res.signal = SIGKILL; // чтобы triage/executor могли понять, что это watchdog
     }
 
     return res;

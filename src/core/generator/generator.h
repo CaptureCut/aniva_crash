@@ -23,6 +23,9 @@ public:
     // обновление bias по паттернам (feedback loop)
     void update_bias(const std::vector<PatternHit>& patterns);
 
+    // нужен для HuntLoop::restart()
+    void reset();
+
 private:
     // базовый seed или случайный из корпуса
     std::string build_seed();
@@ -42,6 +45,6 @@ private:
     Arena arena_;
     Mutator mutator_;
 
-    // новый анализатор паттернов
+    // анализатор паттернов
     PatternAnalyzer analyzer_;
 };

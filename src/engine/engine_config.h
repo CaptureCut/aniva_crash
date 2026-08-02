@@ -17,6 +17,22 @@ struct EngineConfig {
 
     // путь к GPU‑конфигу (опционально)
     std::string gpu_config;
+
+    // секция sandbox (опциональная)
+    struct Sandbox {
+        bool seccomp = false;
+        bool cgroups = false;
+        int memory_limit_mb = 0;
+        int cpu_limit_percent = 0;
+    } sandbox;
+
+    // секция генератора (опциональная)
+    struct Generator {
+        int max_tokens = 4096;
+        bool templates_enabled = true;
+        bool pattern_bias = true;
+        bool gpu_bias = true;
+    } generator;
 };
 
 // загрузка конфигурации из JSON

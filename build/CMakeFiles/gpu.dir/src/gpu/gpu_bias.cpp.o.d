@@ -176,4 +176,8 @@ CMakeFiles/gpu.dir/src/gpu/gpu_bias.cpp.o: \
  /usr/local/cuda/include/vector_functions.h \
  /usr/local/cuda/include/vector_functions.hpp /usr/include/c++/13/utility \
  /usr/include/c++/13/bits/stl_relops.h \
- /mnt/c/Users/freeg/Documents/aniva_crash/src/core/pattern/pattern_analyzer.h
+ /mnt/c/Users/freeg/Documents/aniva_crash/src/core/pattern/pattern_analyzer.h \
+ /usr/include/c++/13/cstdint \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-least.h

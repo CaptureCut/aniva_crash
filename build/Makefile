@@ -48,10 +48,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/cmake/1558/bin/cmake
+CMAKE_COMMAND = /snap/cmake/1560/bin/cmake
 
 # The command to remove a file.
-RM = /snap/cmake/1558/bin/cmake -E rm -f
+RM = /snap/cmake/1560/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /mnt/c/Users/freeg/Documents/aniva_crash/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
-	/snap/cmake/1558/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/snap/cmake/1560/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	/snap/cmake/1558/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/snap/cmake/1560/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -128,19 +128,6 @@ core_pattern: cmake_check_build_system
 core_pattern/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_pattern.dir/build.make CMakeFiles/core_pattern.dir/build
 .PHONY : core_pattern/fast
-
-#=============================================================================
-# Target rules for targets named engine
-
-# Build rule for target.
-engine: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 engine
-.PHONY : engine
-
-# fast build rule for target.
-engine/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/build
-.PHONY : engine/fast
 
 #=============================================================================
 # Target rules for targets named core_generator
@@ -310,6 +297,19 @@ gpu: cmake_check_build_system
 gpu/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gpu.dir/build.make CMakeFiles/gpu.dir/build
 .PHONY : gpu/fast
+
+#=============================================================================
+# Target rules for targets named engine
+
+# Build rule for target.
+engine: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 engine
+.PHONY : engine
+
+# fast build rule for target.
+engine/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/build
+.PHONY : engine/fast
 
 #=============================================================================
 # Target rules for targets named aniva_crash

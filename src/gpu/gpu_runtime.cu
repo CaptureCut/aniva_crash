@@ -11,82 +11,42 @@ bool GpuRuntime::check(const char* where, cudaError_t err) {
     return true;
 }
 
-GpuRuntimeResult GpuRuntime::score(
-    const std::vector<int>& crash,
-    const std::vector<int>& score,
-    const std::vector<int>& tf,
-    const std::vector<int>& mg,
-    const std::vector<int>& wasm,
-    const std::vector<int>& ta,
-    const std::vector<int>& gc
-) {
+GpuRuntimeResult GpuRuntime::score(const std::string& js_code,
+                                   const std::vector<PatternHit>& patterns)
+{
     GpuRuntimeResult result{};
 
-    int count = crash.size();
-    if (count == 0) {
-        return result;
+    // 1) простая эвристика: длина кода → coverage_score
+    result.coverage_score = std::min<float>(1.0f, js_code.size() / 5000.0f);
+
+    // 2) паттерны → pattern_score
+    float pattern_sum = 0.0f;
+    for (const auto& p : patterns)
+        pattern_sum += p.weight;
+
+    result.pattern_score = std::min<float>(1.0f, pattern_sum / 5.0f);
+
+    // 3) эвристика crash_score: наличие опасных паттернов
+    bool has_wasm = false;
+    bool has_oob  = false;
+    bool has_proxy = false;
+
+    for (const auto& p : patterns) {
+        if (p.kind == PatternKind::Wasm) has_wasm = true;
+        if (p.kind == PatternKind::TypedArrayOob) has_oob = true;
+        if (p.kind == PatternKind::Proxy) has_proxy = true;
     }
 
-    // device buffers
-    int *d_crash = nullptr, *d_score = nullptr, *d_tf = nullptr;
-    int *d_mg = nullptr, *d_wasm = nullptr, *d_ta = nullptr, *d_gc = nullptr;
-    float* d_out = nullptr;
+    result.crash_score =
+        (has_wasm ? 0.4f : 0.0f) +
+        (has_oob  ? 0.4f : 0.0f) +
+        (has_proxy? 0.2f : 0.0f);
 
-    auto alloc = [&](auto** ptr, size_t bytes, const char* name) {
-        return check(name, cudaMalloc(ptr, bytes));
-    };
+    // 4) итоговый bias
+    result.total_bias =
+          result.coverage_score * 0.4f
+        + result.pattern_score  * 0.4f
+        + result.crash_score    * 0.2f;
 
-    alloc(&d_crash, count * sizeof(int), "malloc crash");
-    alloc(&d_score, count * sizeof(int), "malloc score");
-    alloc(&d_tf,    count * sizeof(int), "malloc tf");
-    alloc(&d_mg,    count * sizeof(int), "malloc mg");
-    alloc(&d_wasm,  count * sizeof(int), "malloc wasm");
-    alloc(&d_ta,    count * sizeof(int), "malloc ta");
-    alloc(&d_gc,    count * sizeof(int), "malloc gc");
-    alloc(&d_out,   count * sizeof(float), "malloc out");
-
-    auto copy = [&](auto* dst, const auto& src, const char* name) {
-        return check(name, cudaMemcpy(dst, src.data(),
-                                      src.size() * sizeof(int),
-                                      cudaMemcpyHostToDevice));
-    };
-
-    copy(d_crash, crash, "copy crash");
-    copy(d_score, score, "copy score");
-    copy(d_tf,    tf,    "copy tf");
-    copy(d_mg,    mg,    "copy mg");
-    copy(d_wasm,  wasm,  "copy wasm");
-    copy(d_ta,    ta,    "copy ta");
-    copy(d_gc,    gc,    "copy gc");
-
-    dim3 block(256);
-    dim3 grid((count + block.x - 1) / block.x);
-
-    score_kernel<<<grid, block>>>(
-        d_crash, d_score, d_tf, d_mg, d_wasm, d_ta, d_gc,
-        d_out, count
-    );
-
-    check("kernel launch", cudaGetLastError());
-    check("device sync", cudaDeviceSynchronize());
-
-    std::vector<float> out(count);
-    check("copy out", cudaMemcpy(out.data(), d_out,
-                                 count * sizeof(float),
-                                 cudaMemcpyDeviceToHost));
-
-    cudaFree(d_crash);
-    cudaFree(d_score);
-    cudaFree(d_tf);
-    cudaFree(d_mg);
-    cudaFree(d_wasm);
-    cudaFree(d_ta);
-    cudaFree(d_gc);
-    cudaFree(d_out);
-
-    float sum = 0.0f;
-    for (float v : out) sum += v;
-
-    result.total_bias = sum;
     return result;
 }

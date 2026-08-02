@@ -3,16 +3,49 @@
 #include <filesystem>
 #include <fstream>
 #include <random>
+#include <chrono>
 
 namespace fs = std::filesystem;
 
-CorpusStore::CorpusStore(const std::string& dir)
-    : dir_(dir)
-{
-    // создаём директорию, если её нет
-    fs::create_directories(dir_);
+static void ensure_dir(const std::string& path) {
+    if (!fs::exists(path)) fs::create_directories(path);
+}
 
-    // загружаем существующие файлы в память
+static std::string timestamp() {
+    auto now = std::chrono::system_clock::now();
+    auto t = std::chrono::system_clock::to_time_t(now);
+    return std::to_string(t);
+}
+
+static std::string classify_case(const ExecStatus exec_status,
+                                 const TriageResult& triage,
+                                 const std::vector<PatternHit>& patterns)
+{
+    if (exec_status == ExecStatus::CRASH)
+        return "corpus/crashes/";
+
+    if (exec_status == ExecStatus::INTERESTING)
+        return "corpus/interesting/";
+
+    // классификация по паттернам
+    for (const auto& p : patterns) {
+
+        if (p.kind == PatternKind::Wasm)
+            return "corpus/wasm/";
+
+        if (p.kind == PatternKind::JitDeopt)
+            return "corpus/jit/";
+    }
+
+    return "corpus/interesting/";
+}
+
+CorpusStore::CorpusStore(const std::string& dir, EventBus& bus)
+    : dir_(dir)
+    , bus_(bus)
+{
+    ensure_dir(dir_);
+
     for (const auto& entry : fs::directory_iterator(dir_)) {
         if (!entry.is_regular_file()) continue;
 
@@ -31,10 +64,8 @@ void CorpusStore::save(const std::string& script) {
     if (script.empty())
         return;
 
-    // добавляем в память
     corpus_.push_back(script);
 
-    // сохраняем на диск — имя файла по размеру корпуса
     std::string filename = dir_ + "/script_" + std::to_string(corpus_.size()) + ".js";
 
     std::ofstream out(filename);
@@ -42,6 +73,23 @@ void CorpusStore::save(const std::string& script) {
         return;
 
     out << script;
+}
+
+void CorpusStore::save_case(const std::string& js_code,
+                            const ExecStatus exec_status,
+                            const TriageResult& triage,
+                            const std::vector<PatternHit>& patterns)
+{
+    std::string subdir = classify_case(exec_status, triage, patterns);
+    ensure_dir(subdir);
+
+    std::string file = subdir + timestamp() + ".js";
+
+    std::ofstream out(file);
+    out << js_code;
+    out.close();
+
+    bus_.publish("corpus:save", "Saved case to: " + file);
 }
 
 std::string CorpusStore::get_random() const {

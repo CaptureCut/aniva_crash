@@ -38,19 +38,11 @@ include_directories(
 )
 
 # -----------------------------
-# pattern analyzer (FIX)
+# pattern analyzer
 # -----------------------------
 add_library(core_pattern
     src/core/pattern/pattern_analyzer.cpp
     src/core/pattern/pattern_analyzer.h
-)
-
-# -----------------------------
-# engine
-# -----------------------------
-add_library(engine
-    src/engine/engine.cpp
-    src/engine/engine_config.cpp
 )
 
 # -----------------------------
@@ -97,7 +89,7 @@ add_library(bus
 )
 
 # -----------------------------
-# diagnostics
+# diagnostics (runtime)
 # -----------------------------
 add_library(diagnostics
     src/diagnostics/live_diagnostics.cpp
@@ -157,10 +149,36 @@ add_library(gpu
 
 set_target_properties(gpu PROPERTIES
     CUDA_SEPARABLE_COMPILATION ON
+    CUDA_RESOLVE_DEVICE_SYMBOLS ON
 )
 
 target_compile_options(gpu PRIVATE
     $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler -w>
+)
+
+# -----------------------------
+# engine
+# -----------------------------
+add_library(engine
+    src/engine/engine.cpp
+    src/engine/engine_config.cpp
+)
+
+target_link_libraries(engine
+    PUBLIC
+        core_generator
+        core_executor
+        core_triage
+        core_minimizer
+        core_hunt_loop
+        core_pattern
+        bus
+        telemetry
+        persistence
+        memory
+        isolation
+        time
+        gpu
 )
 
 # -----------------------------
@@ -171,22 +189,22 @@ add_executable(aniva_crash
 )
 
 target_link_libraries(aniva_crash
-    engine
-    core_generator
-    core_executor
-    core_triage
-    core_minimizer
-    core_hunt_loop
-    core_pattern
-
-    bus
-    diagnostics
-    persistence
-    memory
-    isolation
-    time
-    telemetry
-    gpu
+    PRIVATE
+        engine
+        core_generator
+        core_executor
+        core_triage
+        core_minimizer
+        core_hunt_loop
+        core_pattern
+        bus
+        diagnostics
+        persistence
+        memory
+        isolation
+        time
+        telemetry
+        gpu
 )
 
 # -----------------------------

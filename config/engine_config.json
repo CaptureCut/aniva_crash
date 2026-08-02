@@ -10,7 +10,7 @@
     "gpu_config": "config/gpu/default.json",
 
     "sandbox": {
-        "seccomp": true,
+        "seccomp": false,
         "cgroups": true,
         "memory_limit_mb": 256,
         "cpu_limit_percent": 80

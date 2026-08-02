@@ -3,6 +3,7 @@
 #include <vector>
 
 enum class PatternKind {
+    // базовые
     Proxy,
     Atomics,
     Wasm,
@@ -10,7 +11,14 @@ enum class PatternKind {
     GcPressure,
     TypedArrayOob,
     JitDeopt,
-    Unknown
+    Other,
+
+    // новые опасные паттерны
+    ProxyRec,        // рекурсивные ловушки Proxy
+    WasmOob,         // wasm out-of-bounds
+    RegExpCat,       // catastrophic backtracking
+    TypedArray,      // обычные typedarray
+    DataView,        // обычные dataview
 };
 
 struct PatternHit {
@@ -23,10 +31,14 @@ class PatternAnalyzer {
 public:
     PatternAnalyzer() = default;
 
-    // анализирует JS-код и возвращает найденные паттерны
     std::vector<PatternHit> analyze(const std::string& code);
 
+    bool is_interesting(const std::vector<PatternHit>& hits) const;
+
+    void reset();
+
 private:
+    // старые детекторы можно удалить — мы используем новую систему find_all()
     void detect_proxy(const std::string& code, std::vector<PatternHit>& out);
     void detect_atomics(const std::string& code, std::vector<PatternHit>& out);
     void detect_wasm(const std::string& code, std::vector<PatternHit>& out);
