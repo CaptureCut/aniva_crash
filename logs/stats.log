@@ -1,0 +1,12 @@
+iteration=1000 generated=1000 executed=1000 crashes=0 corpus_saved=0 avg_iter_us=58073 max_iter_us=957754
+iteration=2000 generated=2000 executed=2000 crashes=0 corpus_saved=0 avg_iter_us=63145 max_iter_us=957754
+iteration=3000 generated=3000 executed=3000 crashes=0 corpus_saved=0 avg_iter_us=66351 max_iter_us=957754
+iteration=4000 generated=4000 executed=4000 crashes=0 corpus_saved=0 avg_iter_us=64767 max_iter_us=961346
+iteration=5000 generated=5000 executed=5000 crashes=0 corpus_saved=0 avg_iter_us=64572 max_iter_us=1069510
+iteration=6000 generated=6000 executed=6000 crashes=0 corpus_saved=0 avg_iter_us=65094 max_iter_us=1069510
+iteration=7000 generated=7000 executed=7000 crashes=0 corpus_saved=0 avg_iter_us=64779 max_iter_us=1069510
+iteration=8000 generated=8000 executed=8000 crashes=0 corpus_saved=0 avg_iter_us=64216 max_iter_us=1069510
+iteration=9000 generated=9000 executed=9000 crashes=0 corpus_saved=0 avg_iter_us=64013 max_iter_us=1069510
+iteration=10000 generated=10000 executed=10000 crashes=0 corpus_saved=0 avg_iter_us=62090 max_iter_us=1069510
+iteration=11000 generated=11000 executed=11000 crashes=0 corpus_saved=0 avg_iter_us=61495 max_iter_us=1069510
+iteration=12000 generated=12000 executed=12000 crashes=0 corpus_saved=0 avg_iter_us=62121 max_iter_us=1069510

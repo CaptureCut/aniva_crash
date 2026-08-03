@@ -2,81 +2,84 @@
 #include <cstdlib>
 #include <vector>
 #include <string>
+#include <atomic>
+
 #include "bus/event_bus.h"
 #include "diagnostics/live_diagnostics.h"
-#include "core/hunt_loop.h"
+
+#include "gpu/gpu_runtime.h"
+#include "gpu/gpu_bias.h"
+
+#include "isolation/process_sandbox.h"
+
+#include "core/generator/generator.h"
+#include "core/executor/executor.h"
+#include "core/triage/triage.h"
+#include "core/minimizer/minimizer.h"
+#include "core/pattern/pattern_analyzer.h"
+
+#include "persistence/corpus_store.h"
+#include "persistence/crash_store.h"
+
+#include "telemetry/telemetry.h"
+#include "time/heartbeat.h"
+
+#include "core/hunt_loop/hunt_loop.h"
 
 namespace fs = std::filesystem;
-
-// собираем список всех исходников
-std::vector<fs::path> collect_sources() {
-    std::vector<fs::path> files;
-
-    for (auto& p : fs::recursive_directory_iterator("src")) {
-        if (p.is_regular_file()) {
-            files.push_back(p.path());
-        }
-    }
-
-    return files;
-}
-
-bool sources_changed() {
-    auto exe_time = fs::last_write_time("build/aniva_crash");
-
-    for (auto& file : collect_sources()) {
-        if (fs::last_write_time(file) > exe_time) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-bool rebuild(EventBus& bus) {
-#ifdef _WIN32
-    int code = system("powershell -File build/build.ps1");
-#else
-    int code = system("bash build/build.sh");
-#endif
-
-    if (code == 0) {
-        bus.emit("rebuild_ok", "rebuild completed");
-        return true;
-    } else {
-        bus.emit("rebuild_fail", "rebuild failed");
-        return false;
-    }
-}
-
-void restart_self(EventBus& bus) {
-    bus.emit("restart", "restarting engine");
-
-#ifdef _WIN32
-    system("build\\aniva_crash.exe");
-#else
-    system("./build/aniva_crash");
-#endif
-}
 
 int main() {
     EventBus bus;
     LiveDiagnostics diag(bus);
 
-    if (sources_changed()) {
-        bus.emit("rebuild", "sources changed → rebuilding");
+    // === Directories ===
+    std::string corpus_dir = "data/corpus";
+    std::string crash_dir  = "data/crashes";
 
-        if (!rebuild(bus)) {
-            bus.emit("fatal", "rebuild failed, aborting");
-            return 1;
-        }
+    // === Stores ===
+    CorpusStore corpus(corpus_dir, bus);
+    CrashStore crashes(crash_dir);
 
-        restart_self(bus);
-        return 0;
-    }
+    // === GPU Runtime (no args) ===
+    GpuRuntime gpu_runtime;
+
+    // === GPU Bias ===
+    GpuBias gpu_bias(bus, gpu_runtime);
+
+    // === Sandbox ===
+    ProcessSandbox sandbox(
+        "/home/null0e/v8_clean/v8/out/x64.release/d8",
+        5000
+    );
+
+    // === Components ===
+    Generator generator(bus, &gpu_bias, &corpus);
+    Executor executor(bus, sandbox);
+    Triage triage(bus, crashes, corpus);
+    Minimizer minimizer(bus, executor, crashes);
+    PatternAnalyzer pattern;
+    Telemetry telemetry;
+    Heartbeat heartbeat(telemetry, 1000);
+
+    // === HuntLoop ===
+    HuntLoop loop(
+        bus,
+        generator,
+        executor,
+        triage,
+        minimizer,
+        pattern,
+        corpus,
+        crashes,
+        telemetry,
+        heartbeat
+    );
+
+    std::atomic<bool> stop_flag(false);
 
     bus.emit("start", "starting hunt loop");
 
-    HuntLoop loop(bus);
-    loop.run();
+    loop.run(stop_flag);
+
+    return 0;
 }

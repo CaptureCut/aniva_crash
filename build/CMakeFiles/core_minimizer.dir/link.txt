@@ -1,2 +1,2 @@
-/usr/bin/ar qc libcore_minimizer.a CMakeFiles/core_minimizer.dir/src/core/minimizer/minimizer.cpp.o
+/usr/bin/ar qc libcore_minimizer.a CMakeFiles/core_minimizer.dir/src/core/minimizer/minimizer.cpp.o CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.o CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.o
 /usr/bin/ranlib libcore_minimizer.a

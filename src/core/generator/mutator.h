@@ -27,4 +27,9 @@ private:
     std::string wrap_in_try(const std::string& code);
     std::string append_function_call(const std::string& code);
     std::string append_wasm_trigger(const std::string& code);
+
+    // агрессивные мутации (должны быть объявлены!)
+    std::string insert_oob_index(const std::string& code);
+    std::string insert_strange_value(const std::string& code);
+    std::string insert_proxy_glitch(const std::string& code);
 };

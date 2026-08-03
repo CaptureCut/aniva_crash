@@ -86,33 +86,7 @@ uint64_t Triage::compute_crash_key(const ExecResult& exec)
 }
 
 // ------------------------------------------------------------
-//  Old signature (if нужно где-то ещё)
-// ------------------------------------------------------------
-uint64_t Triage::compute_signature(const ExecResult& exec,
-                                   const std::vector<PatternHit>& patterns)
-{
-    uint64_t h = 0xcbf29ce484222325ULL;
-
-    auto mix = [&](uint64_t x) {
-        h ^= x;
-        h *= 0x100000001b3ULL;
-    };
-
-    mix(exec.exit_code);
-    mix(exec.signal);
-    mix(static_cast<uint64_t>(exec.status));
-
-    for (const auto& p : patterns) {
-        mix(static_cast<uint64_t>(p.kind));
-        mix(static_cast<uint64_t>(p.weight * 1000));
-        mix(static_cast<uint64_t>(p.position));
-    }
-
-    return h;
-}
-
-// ------------------------------------------------------------
-//  Unique crash detection (по старому sig, если нужно)
+//  Unique crash detection (legacy)
 // ------------------------------------------------------------
 bool Triage::is_unique(uint64_t sig)
 {
@@ -164,12 +138,12 @@ bool Triage::is_sandbox_error(const ExecResult& exec)
 // ------------------------------------------------------------
 int Triage::severity(const ExecResult& exec)
 {
-    if (is_real_crash(exec))                 return 5; // native crash
-    if (is_sandbox_error(exec))             return 4; // sandbox failure
-    if (is_timeout(exec))                   return 3; // timeout
+    if (is_real_crash(exec))                 return 5;
+    if (is_sandbox_error(exec))             return 4;
+    if (is_timeout(exec))                   return 3;
     if (exec.status == ExecStatus::INTERESTING) return 2;
-    if (is_js_exception(exec))              return 1; // JS exception
-    return 0;                                      // OK
+    if (is_js_exception(exec))              return 1;
+    return 0;
 }
 
 // ------------------------------------------------------------
@@ -184,10 +158,8 @@ void Triage::classify(const ExecResult& exec,
     const uint64_t crash_key = compute_crash_key(exec);
     const int sev = severity(exec);
 
-    // ------------------------------------------------------------
-    // Deduplication for severe cases
-    // ------------------------------------------------------------
-    if (sev >= 3) { // CRASH / SANDBOX / TIMEOUT
+    // Dedup severe cases
+    if (sev >= 3) {
         if (seen_keys_.count(crash_key)) {
             bus_.publish("triage:duplicate", "duplicate crash");
             bus_.publish("triage:end", "triage finished");
@@ -196,9 +168,7 @@ void Triage::classify(const ExecResult& exec,
         seen_keys_.insert(crash_key);
     }
 
-    // ------------------------------------------------------------
     // REAL CRASH
-    // ------------------------------------------------------------
     if (sev == 5) {
 
         log_alert("Native crash detected");
@@ -209,7 +179,7 @@ void Triage::classify(const ExecResult& exec,
         CrashEntry entry;
         entry.signature = std::to_string(crash_key);
         entry.original  = script.code;
-        entry.minimized = ""; // minimizer заполнит позже
+        entry.minimized = "";
         entry.patterns  = patterns;
         entry.exec      = exec;
         entry.timestamp = std::time(nullptr);
@@ -218,16 +188,14 @@ void Triage::classify(const ExecResult& exec,
 
         corpus_.save_case(script.code,
                           ExecStatus::CRASH,
-                          TriageResult::Crash(),
+                          TriageResult::Crash(crash_key),
                           patterns);
 
         bus_.publish("triage:end", "triage finished");
         return;
     }
 
-    // ------------------------------------------------------------
     // SANDBOX FAILURE
-    // ------------------------------------------------------------
     if (sev == 4) {
 
         log_alert("Sandbox failure detected");
@@ -235,16 +203,14 @@ void Triage::classify(const ExecResult& exec,
 
         corpus_.save_case(script.code,
                           ExecStatus::SANDBOX_FAILURE,
-                          TriageResult::SandboxError(),
+                          TriageResult::SandboxError(crash_key),
                           patterns);
 
         bus_.publish("triage:end", "triage finished");
         return;
     }
 
-    // ------------------------------------------------------------
     // TIMEOUT
-    // ------------------------------------------------------------
     if (sev == 3) {
 
         log_alert("Timeout detected");
@@ -252,16 +218,14 @@ void Triage::classify(const ExecResult& exec,
 
         corpus_.save_case(script.code,
                           ExecStatus::TIMEOUT,
-                          TriageResult::Timeout(),
+                          TriageResult::Timeout(crash_key),
                           patterns);
 
         bus_.publish("triage:end", "triage finished");
         return;
     }
 
-    // ------------------------------------------------------------
     // INTERESTING CASE
-    // ------------------------------------------------------------
     if (sev == 2) {
 
         log_alert("Interesting case detected");
@@ -269,35 +233,28 @@ void Triage::classify(const ExecResult& exec,
 
         corpus_.save_case(script.code,
                           ExecStatus::INTERESTING,
-                          TriageResult::Interesting(),
+                          TriageResult::Interesting(crash_key),
                           patterns);
 
         bus_.publish("triage:end", "triage finished");
         return;
     }
 
-    // ------------------------------------------------------------
-    // JS EXCEPTION (quiet mode)
-// ------------------------------------------------------------
+    // JS EXCEPTION
     if (sev == 1) {
 
-        // тихий лог — без alert-спама
         bus_.publish("triage:js_exception", "js exception");
-
-        // НЕ сохраняем в corpus — это шум
         bus_.publish("triage:end", "triage finished");
         return;
     }
 
-    // ------------------------------------------------------------
     // OK
-    // ------------------------------------------------------------
     bus_.publish("triage:ok", "no crash");
     bus_.publish("triage:end", "triage finished");
 }
 
 // ------------------------------------------------------------
-//  Reset for HuntLoop::restart()
+//  Reset
 // ------------------------------------------------------------
 void Triage::reset()
 {

@@ -86,17 +86,49 @@ CMakeFiles/core_minimizer.dir/src/core/minimizer/minimizer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/core_minimizer.dir/src/core/minimizer/minimizer.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/freeg/Documents/aniva_crash/src/core/minimizer/minimizer.cpp -o CMakeFiles/core_minimizer.dir/src/core/minimizer/minimizer.cpp.s
 
+CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.o: CMakeFiles/core_minimizer.dir/flags.make
+CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.o: /mnt/c/Users/freeg/Documents/aniva_crash/src/core/minimizer/delta.cpp
+CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.o: CMakeFiles/core_minimizer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.o -MF CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.o.d -o CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.o -c /mnt/c/Users/freeg/Documents/aniva_crash/src/core/minimizer/delta.cpp
+
+CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/freeg/Documents/aniva_crash/src/core/minimizer/delta.cpp > CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.i
+
+CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/freeg/Documents/aniva_crash/src/core/minimizer/delta.cpp -o CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.s
+
+CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.o: CMakeFiles/core_minimizer.dir/flags.make
+CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.o: /mnt/c/Users/freeg/Documents/aniva_crash/src/core/minimizer/ast_min.cpp
+CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.o: CMakeFiles/core_minimizer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.o -MF CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.o.d -o CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.o -c /mnt/c/Users/freeg/Documents/aniva_crash/src/core/minimizer/ast_min.cpp
+
+CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/freeg/Documents/aniva_crash/src/core/minimizer/ast_min.cpp > CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.i
+
+CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/freeg/Documents/aniva_crash/src/core/minimizer/ast_min.cpp -o CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.s
+
 # Object files for target core_minimizer
 core_minimizer_OBJECTS = \
-"CMakeFiles/core_minimizer.dir/src/core/minimizer/minimizer.cpp.o"
+"CMakeFiles/core_minimizer.dir/src/core/minimizer/minimizer.cpp.o" \
+"CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.o" \
+"CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.o"
 
 # External object files for target core_minimizer
 core_minimizer_EXTERNAL_OBJECTS =
 
 libcore_minimizer.a: CMakeFiles/core_minimizer.dir/src/core/minimizer/minimizer.cpp.o
+libcore_minimizer.a: CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.o
+libcore_minimizer.a: CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.o
 libcore_minimizer.a: CMakeFiles/core_minimizer.dir/build.make
 libcore_minimizer.a: CMakeFiles/core_minimizer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libcore_minimizer.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libcore_minimizer.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/core_minimizer.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/core_minimizer.dir/link.txt --verbose=$(VERBOSE)
 

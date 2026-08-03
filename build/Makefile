@@ -457,6 +457,54 @@ src/core/hunt_loop/hunt_loop.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_hunt_loop.dir/build.make CMakeFiles/core_hunt_loop.dir/src/core/hunt_loop/hunt_loop.cpp.s
 .PHONY : src/core/hunt_loop/hunt_loop.cpp.s
 
+src/core/minimizer/ast_min.o: src/core/minimizer/ast_min.cpp.o
+.PHONY : src/core/minimizer/ast_min.o
+
+# target to build an object file
+src/core/minimizer/ast_min.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_minimizer.dir/build.make CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.o
+.PHONY : src/core/minimizer/ast_min.cpp.o
+
+src/core/minimizer/ast_min.i: src/core/minimizer/ast_min.cpp.i
+.PHONY : src/core/minimizer/ast_min.i
+
+# target to preprocess a source file
+src/core/minimizer/ast_min.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_minimizer.dir/build.make CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.i
+.PHONY : src/core/minimizer/ast_min.cpp.i
+
+src/core/minimizer/ast_min.s: src/core/minimizer/ast_min.cpp.s
+.PHONY : src/core/minimizer/ast_min.s
+
+# target to generate assembly for a file
+src/core/minimizer/ast_min.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_minimizer.dir/build.make CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.s
+.PHONY : src/core/minimizer/ast_min.cpp.s
+
+src/core/minimizer/delta.o: src/core/minimizer/delta.cpp.o
+.PHONY : src/core/minimizer/delta.o
+
+# target to build an object file
+src/core/minimizer/delta.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_minimizer.dir/build.make CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.o
+.PHONY : src/core/minimizer/delta.cpp.o
+
+src/core/minimizer/delta.i: src/core/minimizer/delta.cpp.i
+.PHONY : src/core/minimizer/delta.i
+
+# target to preprocess a source file
+src/core/minimizer/delta.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_minimizer.dir/build.make CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.i
+.PHONY : src/core/minimizer/delta.cpp.i
+
+src/core/minimizer/delta.s: src/core/minimizer/delta.cpp.s
+.PHONY : src/core/minimizer/delta.s
+
+# target to generate assembly for a file
+src/core/minimizer/delta.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_minimizer.dir/build.make CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.s
+.PHONY : src/core/minimizer/delta.cpp.s
+
 src/core/minimizer/minimizer.o: src/core/minimizer/minimizer.cpp.o
 .PHONY : src/core/minimizer/minimizer.o
 
@@ -1097,6 +1145,12 @@ help:
 	@echo "... src/core/hunt_loop/hunt_loop.o"
 	@echo "... src/core/hunt_loop/hunt_loop.i"
 	@echo "... src/core/hunt_loop/hunt_loop.s"
+	@echo "... src/core/minimizer/ast_min.o"
+	@echo "... src/core/minimizer/ast_min.i"
+	@echo "... src/core/minimizer/ast_min.s"
+	@echo "... src/core/minimizer/delta.o"
+	@echo "... src/core/minimizer/delta.i"
+	@echo "... src/core/minimizer/delta.s"
 	@echo "... src/core/minimizer/minimizer.o"
 	@echo "... src/core/minimizer/minimizer.i"
 	@echo "... src/core/minimizer/minimizer.s"

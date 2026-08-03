@@ -42,7 +42,6 @@ include_directories(
 # -----------------------------
 add_library(core_pattern
     src/core/pattern/pattern_analyzer.cpp
-    src/core/pattern/pattern_analyzer.h
 )
 
 # -----------------------------
@@ -72,6 +71,8 @@ add_library(core_triage
 # -----------------------------
 add_library(core_minimizer
     src/core/minimizer/minimizer.cpp
+    src/core/minimizer/delta.cpp
+    src/core/minimizer/ast_min.cpp
 )
 
 # -----------------------------
@@ -191,20 +192,7 @@ add_executable(aniva_crash
 target_link_libraries(aniva_crash
     PRIVATE
         engine
-        core_generator
-        core_executor
-        core_triage
-        core_minimizer
-        core_hunt_loop
-        core_pattern
-        bus
         diagnostics
-        persistence
-        memory
-        isolation
-        time
-        telemetry
-        gpu
 )
 
 # -----------------------------

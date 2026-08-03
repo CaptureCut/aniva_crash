@@ -8,6 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/mnt/c/Users/freeg/Documents/aniva_crash/src/core/minimizer/ast_min.cpp" "CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.o" "gcc" "CMakeFiles/core_minimizer.dir/src/core/minimizer/ast_min.cpp.o.d"
+  "/mnt/c/Users/freeg/Documents/aniva_crash/src/core/minimizer/delta.cpp" "CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.o" "gcc" "CMakeFiles/core_minimizer.dir/src/core/minimizer/delta.cpp.o.d"
   "/mnt/c/Users/freeg/Documents/aniva_crash/src/core/minimizer/minimizer.cpp" "CMakeFiles/core_minimizer.dir/src/core/minimizer/minimizer.cpp.o" "gcc" "CMakeFiles/core_minimizer.dir/src/core/minimizer/minimizer.cpp.o.d"
   )
 

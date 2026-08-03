@@ -23,26 +23,24 @@ public:
                   const Script& script,
                   const std::vector<PatternHit>& patterns);
 
-    // нужен для HuntLoop::restart()
+    // HuntLoop::restart()
     void reset();
 
 private:
-    // -----------------------------
+    // ------------------------------------------------------------
     // Crash-key (deduplication)
-    // -----------------------------
+    // ------------------------------------------------------------
     uint64_t compute_crash_key(const ExecResult& exec);
 
-    // -----------------------------
-    // Old signature (optional)
-    // -----------------------------
+    // legacy signature (optional)
     uint64_t compute_signature(const ExecResult& exec,
                                const std::vector<PatternHit>& patterns);
 
     bool is_unique(uint64_t sig);
 
-    // -----------------------------
+    // ------------------------------------------------------------
     // Crash classification helpers
-    // -----------------------------
+    // ------------------------------------------------------------
     bool is_real_crash(const ExecResult& exec);
     bool is_timeout(const ExecResult& exec);
     bool is_js_exception(const ExecResult& exec);
@@ -51,14 +49,14 @@ private:
     // severity 0–5
     int severity(const ExecResult& exec);
 
-    // -----------------------------
+    // ------------------------------------------------------------
     // Logging
-    // -----------------------------
+    // ------------------------------------------------------------
     void log_alert(const std::string& msg);
 
-    // -----------------------------
+    // ------------------------------------------------------------
     // Stacktrace saving
-    // -----------------------------
+    // ------------------------------------------------------------
     void save_stacktrace(const ExecResult& exec);
 
 private:

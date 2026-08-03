@@ -97,6 +97,7 @@ aniva_crash: CMakeFiles/aniva_crash.dir/src/main.cpp.o
 aniva_crash: CMakeFiles/aniva_crash.dir/build.make
 aniva_crash: CMakeFiles/aniva_crash.dir/compiler_depend.ts
 aniva_crash: libengine.a
+aniva_crash: libdiagnostics.a
 aniva_crash: libcore_generator.a
 aniva_crash: libcore_executor.a
 aniva_crash: libcore_triage.a
@@ -104,12 +105,11 @@ aniva_crash: libcore_minimizer.a
 aniva_crash: libcore_hunt_loop.a
 aniva_crash: libcore_pattern.a
 aniva_crash: libbus.a
-aniva_crash: libdiagnostics.a
+aniva_crash: libtelemetry.a
 aniva_crash: libpersistence.a
 aniva_crash: libmemory.a
 aniva_crash: libisolation.a
 aniva_crash: libtime.a
-aniva_crash: libtelemetry.a
 aniva_crash: libgpu.a
 aniva_crash: CMakeFiles/aniva_crash.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable aniva_crash"

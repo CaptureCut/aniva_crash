@@ -133,7 +133,7 @@ clean: CMakeFiles/bootstrap.dir/clean
 CMakeFiles/core_pattern.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_pattern.dir/build.make CMakeFiles/core_pattern.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_pattern.dir/build.make CMakeFiles/core_pattern.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=17,18 "Built target core_pattern"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=19,20 "Built target core_pattern"
 .PHONY : CMakeFiles/core_pattern.dir/all
 
 # Build rule for subdir invocation for target.
@@ -150,7 +150,7 @@ core_pattern: CMakeFiles/core_pattern.dir/rule
 # codegen rule for target.
 CMakeFiles/core_pattern.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_pattern.dir/build.make CMakeFiles/core_pattern.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=17,18 "Finished codegen for target core_pattern"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=19,20 "Finished codegen for target core_pattern"
 .PHONY : CMakeFiles/core_pattern.dir/codegen
 
 # clean rule for target.
@@ -229,7 +229,7 @@ CMakeFiles/core_executor.dir/clean:
 CMakeFiles/core_triage.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_triage.dir/build.make CMakeFiles/core_triage.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_triage.dir/build.make CMakeFiles/core_triage.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=19,20 "Built target core_triage"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=21,22 "Built target core_triage"
 .PHONY : CMakeFiles/core_triage.dir/all
 
 # Build rule for subdir invocation for target.
@@ -246,7 +246,7 @@ core_triage: CMakeFiles/core_triage.dir/rule
 # codegen rule for target.
 CMakeFiles/core_triage.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_triage.dir/build.make CMakeFiles/core_triage.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=19,20 "Finished codegen for target core_triage"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=21,22 "Finished codegen for target core_triage"
 .PHONY : CMakeFiles/core_triage.dir/codegen
 
 # clean rule for target.
@@ -261,12 +261,12 @@ CMakeFiles/core_triage.dir/clean:
 CMakeFiles/core_minimizer.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_minimizer.dir/build.make CMakeFiles/core_minimizer.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_minimizer.dir/build.make CMakeFiles/core_minimizer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=15,16 "Built target core_minimizer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=15,16,17,18 "Built target core_minimizer"
 .PHONY : CMakeFiles/core_minimizer.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/core_minimizer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/core_minimizer.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles 0
 .PHONY : CMakeFiles/core_minimizer.dir/rule
@@ -278,7 +278,7 @@ core_minimizer: CMakeFiles/core_minimizer.dir/rule
 # codegen rule for target.
 CMakeFiles/core_minimizer.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_minimizer.dir/build.make CMakeFiles/core_minimizer.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=15,16 "Finished codegen for target core_minimizer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=15,16,17,18 "Finished codegen for target core_minimizer"
 .PHONY : CMakeFiles/core_minimizer.dir/codegen
 
 # clean rule for target.
@@ -357,7 +357,7 @@ CMakeFiles/bus.dir/clean:
 CMakeFiles/diagnostics.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/diagnostics.dir/build.make CMakeFiles/diagnostics.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/diagnostics.dir/build.make CMakeFiles/diagnostics.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=21,22 "Built target diagnostics"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=23,24 "Built target diagnostics"
 .PHONY : CMakeFiles/diagnostics.dir/all
 
 # Build rule for subdir invocation for target.
@@ -374,7 +374,7 @@ diagnostics: CMakeFiles/diagnostics.dir/rule
 # codegen rule for target.
 CMakeFiles/diagnostics.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/diagnostics.dir/build.make CMakeFiles/diagnostics.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=21,22 "Finished codegen for target diagnostics"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=23,24 "Finished codegen for target diagnostics"
 .PHONY : CMakeFiles/diagnostics.dir/codegen
 
 # clean rule for target.
@@ -389,7 +389,7 @@ CMakeFiles/diagnostics.dir/clean:
 CMakeFiles/persistence.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/persistence.dir/build.make CMakeFiles/persistence.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/persistence.dir/build.make CMakeFiles/persistence.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=40,41,42,43 "Built target persistence"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=42,43,44,45 "Built target persistence"
 .PHONY : CMakeFiles/persistence.dir/all
 
 # Build rule for subdir invocation for target.
@@ -406,7 +406,7 @@ persistence: CMakeFiles/persistence.dir/rule
 # codegen rule for target.
 CMakeFiles/persistence.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/persistence.dir/build.make CMakeFiles/persistence.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=40,41,42,43 "Finished codegen for target persistence"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=42,43,44,45 "Finished codegen for target persistence"
 .PHONY : CMakeFiles/persistence.dir/codegen
 
 # clean rule for target.
@@ -421,7 +421,7 @@ CMakeFiles/persistence.dir/clean:
 CMakeFiles/memory.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/memory.dir/build.make CMakeFiles/memory.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/memory.dir/build.make CMakeFiles/memory.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=37,38,39 "Built target memory"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=39,40,41 "Built target memory"
 .PHONY : CMakeFiles/memory.dir/all
 
 # Build rule for subdir invocation for target.
@@ -438,7 +438,7 @@ memory: CMakeFiles/memory.dir/rule
 # codegen rule for target.
 CMakeFiles/memory.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/memory.dir/build.make CMakeFiles/memory.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=37,38,39 "Finished codegen for target memory"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=39,40,41 "Finished codegen for target memory"
 .PHONY : CMakeFiles/memory.dir/codegen
 
 # clean rule for target.
@@ -453,7 +453,7 @@ CMakeFiles/memory.dir/clean:
 CMakeFiles/isolation.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/isolation.dir/build.make CMakeFiles/isolation.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/isolation.dir/build.make CMakeFiles/isolation.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=35,36 "Built target isolation"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=37,38 "Built target isolation"
 .PHONY : CMakeFiles/isolation.dir/all
 
 # Build rule for subdir invocation for target.
@@ -470,7 +470,7 @@ isolation: CMakeFiles/isolation.dir/rule
 # codegen rule for target.
 CMakeFiles/isolation.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/isolation.dir/build.make CMakeFiles/isolation.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=35,36 "Finished codegen for target isolation"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=37,38 "Finished codegen for target isolation"
 .PHONY : CMakeFiles/isolation.dir/codegen
 
 # clean rule for target.
@@ -485,7 +485,7 @@ CMakeFiles/isolation.dir/clean:
 CMakeFiles/time.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/time.dir/build.make CMakeFiles/time.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/time.dir/build.make CMakeFiles/time.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=46,47,48 "Built target time"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=48,49,50 "Built target time"
 .PHONY : CMakeFiles/time.dir/all
 
 # Build rule for subdir invocation for target.
@@ -502,7 +502,7 @@ time: CMakeFiles/time.dir/rule
 # codegen rule for target.
 CMakeFiles/time.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/time.dir/build.make CMakeFiles/time.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=46,47,48 "Finished codegen for target time"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=48,49,50 "Finished codegen for target time"
 .PHONY : CMakeFiles/time.dir/codegen
 
 # clean rule for target.
@@ -517,7 +517,7 @@ CMakeFiles/time.dir/clean:
 CMakeFiles/telemetry.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/telemetry.dir/build.make CMakeFiles/telemetry.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/telemetry.dir/build.make CMakeFiles/telemetry.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=44,45 "Built target telemetry"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=46,47 "Built target telemetry"
 .PHONY : CMakeFiles/telemetry.dir/all
 
 # Build rule for subdir invocation for target.
@@ -534,7 +534,7 @@ telemetry: CMakeFiles/telemetry.dir/rule
 # codegen rule for target.
 CMakeFiles/telemetry.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/telemetry.dir/build.make CMakeFiles/telemetry.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=44,45 "Finished codegen for target telemetry"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=46,47 "Finished codegen for target telemetry"
 .PHONY : CMakeFiles/telemetry.dir/codegen
 
 # clean rule for target.
@@ -549,7 +549,7 @@ CMakeFiles/telemetry.dir/clean:
 CMakeFiles/gpu.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gpu.dir/build.make CMakeFiles/gpu.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gpu.dir/build.make CMakeFiles/gpu.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=26,27,28,29,30,31,32,33,34 "Built target gpu"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=28,29,30,31,32,33,34,35,36 "Built target gpu"
 .PHONY : CMakeFiles/gpu.dir/all
 
 # Build rule for subdir invocation for target.
@@ -566,7 +566,7 @@ gpu: CMakeFiles/gpu.dir/rule
 # codegen rule for target.
 CMakeFiles/gpu.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gpu.dir/build.make CMakeFiles/gpu.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=26,27,28,29,30,31,32,33,34 "Finished codegen for target gpu"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=28,29,30,31,32,33,34,35,36 "Finished codegen for target gpu"
 .PHONY : CMakeFiles/gpu.dir/codegen
 
 # clean rule for target.
@@ -578,27 +578,27 @@ CMakeFiles/gpu.dir/clean:
 # Target rules for target CMakeFiles/engine.dir
 
 # All Build rule for target.
+CMakeFiles/engine.dir/all: CMakeFiles/core_generator.dir/all
 CMakeFiles/engine.dir/all: CMakeFiles/core_executor.dir/all
 CMakeFiles/engine.dir/all: CMakeFiles/core_triage.dir/all
-CMakeFiles/engine.dir/all: CMakeFiles/time.dir/all
-CMakeFiles/engine.dir/all: CMakeFiles/telemetry.dir/all
-CMakeFiles/engine.dir/all: CMakeFiles/gpu.dir/all
 CMakeFiles/engine.dir/all: CMakeFiles/core_minimizer.dir/all
 CMakeFiles/engine.dir/all: CMakeFiles/core_hunt_loop.dir/all
 CMakeFiles/engine.dir/all: CMakeFiles/bus.dir/all
+CMakeFiles/engine.dir/all: CMakeFiles/time.dir/all
+CMakeFiles/engine.dir/all: CMakeFiles/telemetry.dir/all
+CMakeFiles/engine.dir/all: CMakeFiles/gpu.dir/all
 CMakeFiles/engine.dir/all: CMakeFiles/persistence.dir/all
 CMakeFiles/engine.dir/all: CMakeFiles/memory.dir/all
 CMakeFiles/engine.dir/all: CMakeFiles/isolation.dir/all
 CMakeFiles/engine.dir/all: CMakeFiles/core_pattern.dir/all
-CMakeFiles/engine.dir/all: CMakeFiles/core_generator.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=23,24,25 "Built target engine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=25,26,27 "Built target engine"
 .PHONY : CMakeFiles/engine.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/engine.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles 41
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles 43
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/engine.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles 0
 .PHONY : CMakeFiles/engine.dir/rule
@@ -610,7 +610,7 @@ engine: CMakeFiles/engine.dir/rule
 # codegen rule for target.
 CMakeFiles/engine.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=23,24,25 "Finished codegen for target engine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=25,26,27 "Finished codegen for target engine"
 .PHONY : CMakeFiles/engine.dir/codegen
 
 # clean rule for target.
@@ -622,21 +622,21 @@ CMakeFiles/engine.dir/clean:
 # Target rules for target CMakeFiles/aniva_crash.dir
 
 # All Build rule for target.
+CMakeFiles/aniva_crash.dir/all: CMakeFiles/core_generator.dir/all
 CMakeFiles/aniva_crash.dir/all: CMakeFiles/core_executor.dir/all
 CMakeFiles/aniva_crash.dir/all: CMakeFiles/core_triage.dir/all
+CMakeFiles/aniva_crash.dir/all: CMakeFiles/core_minimizer.dir/all
+CMakeFiles/aniva_crash.dir/all: CMakeFiles/core_hunt_loop.dir/all
+CMakeFiles/aniva_crash.dir/all: CMakeFiles/bus.dir/all
 CMakeFiles/aniva_crash.dir/all: CMakeFiles/time.dir/all
 CMakeFiles/aniva_crash.dir/all: CMakeFiles/telemetry.dir/all
 CMakeFiles/aniva_crash.dir/all: CMakeFiles/gpu.dir/all
 CMakeFiles/aniva_crash.dir/all: CMakeFiles/engine.dir/all
-CMakeFiles/aniva_crash.dir/all: CMakeFiles/core_minimizer.dir/all
-CMakeFiles/aniva_crash.dir/all: CMakeFiles/core_hunt_loop.dir/all
-CMakeFiles/aniva_crash.dir/all: CMakeFiles/bus.dir/all
 CMakeFiles/aniva_crash.dir/all: CMakeFiles/diagnostics.dir/all
 CMakeFiles/aniva_crash.dir/all: CMakeFiles/persistence.dir/all
 CMakeFiles/aniva_crash.dir/all: CMakeFiles/memory.dir/all
 CMakeFiles/aniva_crash.dir/all: CMakeFiles/isolation.dir/all
 CMakeFiles/aniva_crash.dir/all: CMakeFiles/core_pattern.dir/all
-CMakeFiles/aniva_crash.dir/all: CMakeFiles/core_generator.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/aniva_crash.dir/build.make CMakeFiles/aniva_crash.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/aniva_crash.dir/build.make CMakeFiles/aniva_crash.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles --progress-num=1,2 "Built target aniva_crash"
@@ -644,7 +644,7 @@ CMakeFiles/aniva_crash.dir/all: CMakeFiles/core_generator.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/aniva_crash.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles 45
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles 47
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/aniva_crash.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/freeg/Documents/aniva_crash/build/CMakeFiles 0
 .PHONY : CMakeFiles/aniva_crash.dir/rule
