@@ -10,3 +10,4 @@ iteration=9000 generated=9000 executed=9000 crashes=0 corpus_saved=0 avg_iter_us
 iteration=10000 generated=10000 executed=10000 crashes=0 corpus_saved=0 avg_iter_us=62090 max_iter_us=1069510
 iteration=11000 generated=11000 executed=11000 crashes=0 corpus_saved=0 avg_iter_us=61495 max_iter_us=1069510
 iteration=12000 generated=12000 executed=12000 crashes=0 corpus_saved=0 avg_iter_us=62121 max_iter_us=1069510
+iteration=13000 generated=13000 executed=13000 crashes=0 corpus_saved=0 avg_iter_us=62040 max_iter_us=1069510
